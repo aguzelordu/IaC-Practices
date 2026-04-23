@@ -2,19 +2,15 @@ name: Deploy Azure Bicep
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'IaC 101/**'
-      - '.github/workflows/**'
-  workflow_dispatch: # Manuel olarak tetikleyebilmeni saglar
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true 
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,9 +18,7 @@ jobs:
       - name: Log into Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ vars.AZURE_CLIENT_ID }}
-          tenant-id: ${{ vars.AZURE_TENANT_ID }}
-          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Create Resource Group
         uses: azure/cli@v2
@@ -36,7 +30,7 @@ jobs:
         uses: azure/arm-deploy@v2
         with:
           scope: resourcegroup
-          subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
           resourceGroupName: rg-iac101-demo
-          template: './IaC 101/main.bicep'
-          parameters: './IaC 101/demo.parameters.json adminPassword=${{ secrets.ADMIN_PASSWORD }}'
+          template: "./IaC 101/main.bicep"
+          # JSON dosyasını ve Secret'tan gelen şifreyi birleştiriyoruz
+          parameters: "./IaC 101/demo.parameters.json adminPassword=${{ secrets.ADMIN_PASSWORD }}"
