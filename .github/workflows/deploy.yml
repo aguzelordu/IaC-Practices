@@ -31,6 +31,6 @@ jobs:
         with:
           scope: resourcegroup
           resourceGroupName: rg-iac101-demo
-          template: "./IaC 101/main.bicep"
+          template: "./IaC-101/main.bicep"
           # JSON dosyasını ve Secret'tan gelen şifreyi birleştiriyoruz
-          parameters: "./IaC 101/demo.parameters.json adminPassword=${{ secrets.ADMIN_PASSWORD }}"
+          parameters: "./IaC-101/demo.parameters.json adminPassword=${{ secrets.ADMIN_PASSWORD }}"
