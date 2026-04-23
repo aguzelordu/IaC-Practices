@@ -1,0 +1,10 @@
+project = iac-demo-1-bicep
+environment = demo
+location = northeurope
+vm_os = ubuntu-22.04
+vm_size = Standard_B1s
+vm_count_per_vnet = 2
+vnet_a_cidr = 10.10.0.0/24
+vnet_b_cidr = 10.10.1.0/24
+subnet_a_app = 10.10.0.0/26
+subnet_b_app = 10.10.1.0/26

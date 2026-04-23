@@ -1,0 +1,54 @@
+{
+"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+"contentVersion": "1.0.0.0",
+"parameters": {
+"project": {
+"value": "iac101"
+},
+"environment": {
+"value": "demo"
+},
+"location": {
+"value": "northeurope"
+},
+"vmSize": {
+"value": "Standard_B1s"
+},
+"vnetACidr": {
+"value": "10.10.0.0/16"
+},
+"vnetBCidr": {
+"value": "10.20.0.0/16"
+},
+"subnetAApp": {
+"value": "10.10.1.0/24"
+},
+"subnetBApp": {
+"value": "10.20.1.0/24"
+},
+"vmPlan": {
+"value": [
+{
+"name": "a-ubuntu",
+"vnet": "A",
+"osType": "linux"
+},
+{
+"name": "a-windows",
+"vnet": "A",
+"osType": "windows"
+},
+{
+"name": "b-ubuntu",
+"vnet": "B",
+"osType": "linux"
+},
+{
+"name": "b-windows",
+"vnet": "B",
+"osType": "windows"
+}
+]
+}
+}
+}

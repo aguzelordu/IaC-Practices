@@ -1,0 +1,42 @@
+name: Deploy Azure Bicep
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'IaC 101/**'
+      - '.github/workflows/**'
+  workflow_dispatch: # Manuel olarak tetikleyebilmeni saglar
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log into Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Create Resource Group
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            az group create --name rg-iac101-demo --location northeurope
+
+      - name: Deploy Bicep Architecture
+        uses: azure/arm-deploy@v2
+        with:
+          scope: resourcegroup
+          subscriptionId: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: rg-iac101-demo
+          template: './IaC 101/main.bicep'
+          parameters: './IaC 101/demo.parameters.json adminPassword=${{ secrets.ADMIN_PASSWORD }}'
