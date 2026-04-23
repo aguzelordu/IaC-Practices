@@ -3,7 +3,7 @@
 "contentVersion": "1.0.0.0",
 "parameters": {
 "project": {
-"value": "iac101"
+"value": "iac1"
 },
 "environment": {
 "value": "demo"
@@ -29,22 +29,22 @@
 "vmPlan": {
 "value": [
 {
-"name": "a-ubuntu",
+"name": "a-ubt",
 "vnet": "A",
 "osType": "linux"
 },
 {
-"name": "a-windows",
+"name": "a-win",
 "vnet": "A",
 "osType": "windows"
 },
 {
-"name": "b-ubuntu",
+"name": "b-ubt",
 "vnet": "B",
 "osType": "linux"
 },
 {
-"name": "b-windows",
+"name": "b-win",
 "vnet": "B",
 "osType": "windows"
 }
